@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Page Title</title>
+  <meta charset="UTF-8" />
+
+  <style>
+    body {
+      background-color: cadetblue;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    :root {
+      --grid-cols: 1;
+      --grid-rows: 1;
+      --grid-size: 5%;
+    }
+
+    #container {
+      display: grid;
+      grid-gap: 1px;
+      grid-template-rows: repeat(var(--grid-rows), var(--grid-size));
+      grid-template-columns: repeat(var(--grid-cols), var(--grid-size));
+
+    }
+
+    .outer {
+      display: flex;
+      justify-content: center;
+    }
+#numSquares{
+  font-size: 20px
+
+}
+.button{
+  padding: 10px 10px;
+  margin: 4px 2px;
+  border: 1px solid black;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+}
+
+
+
+    
+  </style>
+</head>
+
+<body>
+
+  <body>
+
+    <div class="outer">
+      <h1>Etch a Sketch </h1>
+    </div>
+
+    <div class = "outer">
+      <p>Please enter how large a grid you would like and select the color combination. <br> 
+        A mouseover will change the color, and clicking the square will reset the color.</p>
+    </div>
+
+    <div class = "outer">
+    <form id = "form" class = "outer" >
+      <input id = "numSquares" maxlength = "2047" placeholder="Input # of squares (1 to 64)">
+    </form>
+    </div>
+<br>
+    <div class="outer">
+      <button id = "colorButton" class = "button" onclick="buildGrid(squaresValue(),squaresValue(), 1)">Random Color</button>
+      <button class = "button" onclick="buildGrid(squaresValue(),squaresValue(), 2)">Black</button>
+      <button class = "button" onclick="reset()">Clear screen</button>
+    </div>
+    <div id="container" class="outer"></div>
+
+
+  </body>
+  <script>
+
+  
+
+form.addEventListener('keydown', function(event)
+{
+
+  if (event.keyCode == 13)
+  {
+    document.getElementById("colorButton").click();
+    event.preventDefault();
+  }
+  })
+
+
+    const container = document.getElementById("container")
+
+    var width = window.innerWidth
+    var height = window.innerHeight
+    var dimension = width;
+    var squares = 0;
+
+    function reset() {
+      document.querySelectorAll(".cell").forEach(cell => cell.remove())
+    }
+
+
+    function buildGrid(rows, cols, color) {
+    
+      reset()
+    
+      if (width > height) {
+        dimension = height / cols;
+      }
+      else {
+        dimension = width / (rows);
+      }
+      container.style.setProperty('--grid-rows', rows);
+      container.style.setProperty('--grid-cols', cols);
+      container.style.setProperty('--grid-size', dimension + "px");
+
+      for (var i = 0; i < (rows * cols); i++) {
+        let cell = document.createElement("div")
+        cell.classList.add('cell')
+        cell.style.backgroundColor = "lightgray";
+        //cell.style.border = "0.5px solid black"
+        cell.setAttribute("align", "center")
+        container.appendChild(cell)
+
+        if (color === 1) {
+          cell.addEventListener("mouseover", function () { cell.style.backgroundColor = getRandomColor() });
+          cell.addEventListener("click", function () { cell.style.backgroundColor = "lightgray" });
+
+        }
+
+        else if (color === 2)
+        {
+          cell.addEventListener("mouseover", function () { cell.style.backgroundColor = "black" });
+          cell.addEventListener("click", function () { cell.style.backgroundColor = "lightgray" });
+
+      }
+
+     
+    }
+    }
+
+
+
+    function getRandomColor() {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    function squaresValue() {
+      var x = (document.getElementById("form"));
+      
+  if (((x.elements[0].value) > 64) || ((x.elements[0].value < 1)))
+  {
+    alert("Please enter number between 1-64 for grid size!")
+    Number(squares) = 0;
+    reset()
+  }
+  else{
+      for (var i = 0; i < x.length; i++) {
+        squares = (x.elements[i].value)
+      }
+    }   return Number(squares);
+    }
+  </script>
+</body>
+
+</html>
