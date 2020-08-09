@@ -1,0 +1,39 @@
+body {
+    background-color:     #001133
+
+
+    ;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  :root {
+    --grid-cols: 1;
+    --grid-rows: 1;
+    --grid-size: 5%;
+  }
+
+  #container {
+    display: grid;
+    grid-gap: 1px;
+    grid-template-rows: repeat(var(--grid-rows), var(--grid-size));
+    grid-template-columns: repeat(var(--grid-cols), var(--grid-size));
+
+  }
+
+  .outer {
+    display: flex;
+    justify-content: center;
+  }
+#numSquares{
+font-size: 20px
+
+}
+.button{
+padding: 10px 10px;
+margin: 4px 2px;
+border: 1px solid black;
+text-align: center;
+display: inline-block;
+font-size: 16px;
+}
